@@ -1,0 +1,62 @@
+*{
+	margin:0px;
+	padding: 0px;
+}
+
+/**********************头部*****************************/
+
+.header{
+	width: 100%;
+	height: 100px;
+}
+
+input{
+	width: 100%;
+}
+
+.headerLeft{
+	width: 26%;
+	height: 20px;
+	float: left;
+	background-color: #CDCDC1;
+	margin-top: 40px;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+.headerRight{
+	width: 26%;
+	height: 20px;
+	float: left;
+	background-color: #CDCDC1;
+	margin-top: 40px;
+	border-radius: 10px;
+}
+
+.title{
+	position: relative;
+	width: 200px;
+	height: 100px;
+	float: left;
+	margin-left: 200px;
+	margin-right: 200px;
+}
+
+.title p{
+	line-height: 100px;
+/*	margin-left: 100px;*/
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.content{
+	width: 80%;
+	height: 540px;
+	/*background-color: black;*/
+	margin: 0 auto;
+}
+
+/*****************************表格********************************/
+.watch{
+	background-image:url('../images/watch.png');
+}
