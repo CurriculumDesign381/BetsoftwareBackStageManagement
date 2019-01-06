@@ -54,13 +54,13 @@ window.operateEvents = {
 
 			$('#modify').on('click',function(){ // 修改
 				$.ajax({
-					url: "/Maven_Project/user/updateUser",//servlet文件的名称
+					url: "/Maven_Project/user/update",//servlet文件的名称
 					type: "GET",
 					dataType: "json",
 					data: {
-						"account": row.account,
-						"cellphone": row.cellphone,
-						"username": row.username,
+						"account": $('#account1').val(),
+						"cellphone": $("#cellphone1").val(),
+						"username": $("#username1").val(),
 					},
 					success: function (data1) {
 						if (data1 == 1) {
