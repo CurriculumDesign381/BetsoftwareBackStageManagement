@@ -20,8 +20,12 @@ import javax.annotation.Resource;
 
 
 
+
+
 import org.springframework.stereotype.Service;
  
+
+
 
 
 
@@ -35,9 +39,10 @@ import com.chillax.dao.BaseEntityDao;
 import com.chillax.dao.EntityDao;
 import com.chillax.dao.IUserDao;
 import com.chillax.dao.SearchDao;
-import com.chillax.dto.BetUser;
+import com.chillax.dto.users;
 import com.chillax.dto.User;
 import com.chillax.service.IUserService;
+import com.chillax.util.Entity;
 
  
 @Service("userService")
@@ -62,8 +67,14 @@ public class UserServiceImpl implements IUserService {
 	}
  
 	@Override
-	public List<User> getAllUser() {
-		return userDao.getAllUser();
+	public List<Map<String, Object>> getAllUser() {
+		String[] properties = { "us.account","us.username", "us.cellphone"};
+		String baseEntity = "betsoftware.users us";
+		String condition = null;
+		List<Map<String, Object>> list = baseEntityDao.findByCondition(properties, condition, baseEntity);
+		return list;
+		
+		
 	}
 	
 	@Override
@@ -74,16 +85,17 @@ public class UserServiceImpl implements IUserService {
 		if(	baseEntityDao.deleteByCondition(condition, baseEntity)==1)
 			return 1;
 		else {
-			return 0;
+			return 1;
 		}		
 	}
 	@Override
-	public List<Map<String,Object>> getAllBetUser(){
+	public List<Map<String,Object>> getAllBetUser(String account){
 		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount"};
 		String baseEntity = "betsoftware.users us";	
 		String joinEntity = " join betsoftware.betaccount bet on us.account = bet.supid";
+		String conditionString = "us.account = '"+account+"'";
 		
-		return  searchDao.searchForeign(properties, baseEntity, joinEntity, null, null, null);	
+		return  searchDao.searchForeign(properties, baseEntity, joinEntity, null, null, conditionString);
 	}
 	
 	@Override
@@ -92,17 +104,24 @@ public class UserServiceImpl implements IUserService {
 		String baseEntity = "betsoftware.users us";	
 		String joinEntity = " join betsoftware.betaccount bet on us.account = bet.supid";
 		String condition ="us.username = '"+name+"'";
-		
 		List<Map<String, Object>> list = searchDao.searchForeign(properties, baseEntity, joinEntity, null, null, condition);
 		return list;
 	}
-  	@Override
-  	public int delete(){
-  		String condition = "";
-  		String table = "";
-  		int result = baseEntityDao.deleteByCondition(condition, table);
-  		return 0;
-  	}
+ 
+
+	@Override
+	public int update(String username, String cellphone, String account,String oldAccount) {
+		// TODO Auto-generated method stub
+		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount"};
+		String baseEntity = "betsoftware.users us";	
+		String condition = "account ='"+oldAccount+"'";
+		Entity users = null ;
+		
+		baseEntityDao.updatePropByID(users, condition);
+		return 0;
+	}
+  	
+  	
 	
 	
 

@@ -27,13 +27,13 @@ public class UserController {
 	@Resource
 	private IUserService userService;
 	
-	@RequestMapping("/userList")
-	public String userList(HttpServletRequest request,Model model){
-		List<User> uList = userService.getAllUser();
-		model.addAttribute("uList", uList);
-	
-		return "userList";
-	}
+//	@RequestMapping("/userList")
+//	public String userList(HttpServletRequest request,Model model){
+//		List<User> uList = userService.getAllUser();
+//		model.addAttribute("uList", uList);
+//	
+//		return "userList";
+//	}
 	
 	@RequestMapping("/showUser")
 	public String showUser(HttpServletRequest request,Model model){
@@ -48,10 +48,21 @@ public class UserController {
 	 * @param directoryNo
 	 * @return
 	 */
+	@RequestMapping(value="/getAllBetUser", method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String getAllbetUser(String account){
+		return JSONArray.toJSONString(userService.getAllBetUser( account));
+	}
+	
+	/**
+	 * 获取后台管理数据
+	 * @param directoryNo
+	 * @return
+	 */
 	@RequestMapping(value="/getAllUser", method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public String searchBackstage(String directoryNo,String directoryName,String auditorName,String auditorType,String creator,String auditorNO,String pageIndex,String pageSize,HttpSession session){
-		return JSONArray.toJSONString(userService.getAllBetUser());
+	public String getAllUser(String account){
+		return JSONArray.toJSONString(userService.getAllUser());
 	}
 	/**
 	 *删除用户
