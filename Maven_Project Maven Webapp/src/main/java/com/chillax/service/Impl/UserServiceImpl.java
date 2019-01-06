@@ -23,8 +23,10 @@ import javax.annotation.Resource;
 
 
 
+
 import org.springframework.stereotype.Service;
  
+
 
 
 
@@ -45,6 +47,7 @@ import com.chillax.dto.users;
 import com.chillax.dto.User;
 import com.chillax.service.IUserService;
 import com.chillax.util.Entity;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
  
 @Service("userService")
@@ -129,15 +132,21 @@ public class UserServiceImpl implements IUserService {
 	public int addAccount(String username, String password, String cellphone,
 			String account) {
 		// TODO Auto-generated method stub
+		int result =0;
 		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount"};
 		String baseEntity = "betsoftware.users us";	
-	
 		users users = new users() ;
 		users.setAccount(account);
 		users.setCellphone(cellphone);
 		users.setUsername(username);
 		users.setPassword(password);
-		return baseEntityDao.save(users);
+		
+		try {
+			result = baseEntityDao.save(users);
+		} catch (org.springframework.dao.DuplicateKeyException e) {
+			result = 0;
+		}
+		return result;
 	}
   	
   	
