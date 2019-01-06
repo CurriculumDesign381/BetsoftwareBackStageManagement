@@ -55,8 +55,8 @@ public class UserController {
 	}
 	
 	/**
-	 * 获取后台管理数据
-	 * @param directoryNo
+	 * 获取后台软件用户
+	 * @param account
 	 * @return
 	 */
 	@RequestMapping(value="/getAllUser", method=RequestMethod.GET,produces="application/json;charset=UTF-8")
@@ -64,6 +64,27 @@ public class UserController {
 	public String getAllUser(String account){
 		return JSONArray.toJSONString(userService.getAllUser());
 	}
+	/**
+	 * 修改后台软件用户
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping(value="/updateUser", method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String updateUser(String username,String cellphone,String account,String oldAccount){
+		return JSONArray.toJSONString(userService.update(username, cellphone, account, oldAccount));
+	}
+	
+	/**
+	 * 增加后台软件用户
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping(value="/addAccount", method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String addAccount(String username,String password, String cellphone,String account){
+		return JSONArray.toJSONString(userService.addAccount(username, password, cellphone, account));
+	}	
 	/**
 	 *删除用户
 	 * @param directoryNo

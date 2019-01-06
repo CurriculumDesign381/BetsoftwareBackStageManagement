@@ -1,6 +1,10 @@
 package com.chillax.dto;
 
-public class users {
+import com.chillax.util.Entity;
+
+
+
+public class users extends Entity{
 	String account ;
 	String password;
 	String cellphone;
@@ -36,6 +40,16 @@ public class users {
 		this.cellphone = cellphone;
 	}
 	
-	
+	@Override
+	public String getTableName() {
+		// TODO Auto-generated method stub
+		return "users";
+	}
+
+	@Override
+	public String getPrimaryKey() {
+		// TODO Auto-generated method stub
+		return "account";
+	}
 
 }

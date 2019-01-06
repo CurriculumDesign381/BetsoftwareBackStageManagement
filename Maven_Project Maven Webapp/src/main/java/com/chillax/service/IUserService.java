@@ -22,7 +22,7 @@ public interface IUserService {
 	public List<Map<String, Object>> searchdata(String name);
 
     public int update(String username,String cellphone,String account,String oldAccount);
-    
+    public int addAccount(String username,String password, String cellphone,String account);
  		
 		
 	

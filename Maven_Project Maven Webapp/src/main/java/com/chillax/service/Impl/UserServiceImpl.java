@@ -22,8 +22,10 @@ import javax.annotation.Resource;
 
 
 
+
 import org.springframework.stereotype.Service;
  
+
 
 
 
@@ -115,10 +117,27 @@ public class UserServiceImpl implements IUserService {
 		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount"};
 		String baseEntity = "betsoftware.users us";	
 		String condition = "account ='"+oldAccount+"'";
-		Entity users = null ;
-		
-		baseEntityDao.updatePropByID(users, condition);
-		return 0;
+		users users = new users() ;
+		users.setAccount(account);
+		users.setCellphone(cellphone);
+		users.setUsername(username);
+	
+		return baseEntityDao.updatePropByCondition(users, condition);
+	}
+
+	@Override
+	public int addAccount(String username, String password, String cellphone,
+			String account) {
+		// TODO Auto-generated method stub
+		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount"};
+		String baseEntity = "betsoftware.users us";	
+	
+		users users = new users() ;
+		users.setAccount(account);
+		users.setCellphone(cellphone);
+		users.setUsername(username);
+		users.setPassword(password);
+		return baseEntityDao.save(users);
 	}
   	
   	
