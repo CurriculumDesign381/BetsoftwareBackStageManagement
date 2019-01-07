@@ -31,15 +31,14 @@ window.operateEvents = {
 					$.each(json, function (index, item) {  
 						//循环获取数据    
 						domain += json[index].domain + " \n";  
-						betaccount += json[index].betaccount+" \n";  
-						betamount += json[index].betamount+"\n";
+						betaccount += json[index].betaccount+" 下注金额:"+json[index].betamount+"\n";  
 					});  
 
 					swal({
 						confirmButtonColor: "#DD6B55",
 						type:"info",
 						title: "查看用户信息",
-						text: "域名:"+domain+"\n"+"下注账号:"+betaccount+"\n"+betamount,
+						text: "域名:"+domain+"\n"+"下注账号:"+betaccount,
 					});
 				},
 				error: function (msg) {//ajax请求失败后触发的方法
