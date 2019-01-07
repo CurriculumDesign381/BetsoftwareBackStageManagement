@@ -73,7 +73,7 @@ public class UserServiceImpl implements IUserService {
  
 	@Override
 	public List<Map<String, Object>> getAllUser() {
-		String[] properties = { "us.account","us.username", "us.cellphone"};
+		String[] properties = { "us.account","us.username", "us.cellphone","us.password"};
 		String baseEntity = "betsoftware.users us";
 		String condition = null;
 		List<Map<String, Object>> list = baseEntityDao.findByCondition(properties, condition, baseEntity);
@@ -95,7 +95,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	@Override
 	public List<Map<String,Object>> getAllBetUser(String account){
-		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount"};
+		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount","bet.betamount","bet.password"};
 		String baseEntity = "betsoftware.users us";	
 		String joinEntity = " join betsoftware.betaccount bet on us.account = bet.supid";
 		String conditionString = "us.account = '"+account+"'";
@@ -117,7 +117,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public int update(String username, String cellphone, String account,String oldAccount) {
 		// TODO Auto-generated method stub
-		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount"};
+		String[] properties = { "us.account","us.username", "us.cellphone","bet.domain","bet.account as betaccount","bet.password"};
 		String baseEntity = "betsoftware.users us";	
 		String condition = "account ='"+oldAccount+"'";
 		users users = new users() ;
