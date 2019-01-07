@@ -21,22 +21,25 @@ window.operateEvents = {
 					"account": row.account,
 					"username": row.username,
 					"cellphone": row.cellphone,
+//					"password": row.password,
 				},
 				success: function (data1) {
 					var json = eval(data1); //数组        
 					var domain = "\n";
 					var betaccount = "\n";
+					var betamount = "\n";
 					$.each(json, function (index, item) {  
 						//循环获取数据    
 						domain += json[index].domain + " \n";  
 						betaccount += json[index].betaccount+" \n";  
+						betamount += json[index].betamount+"\n";
 					});  
 
 					swal({
 						confirmButtonColor: "#DD6B55",
 						type:"info",
 						title: "查看用户信息",
-						text: "域名:"+domain+"\n"+"下注账号:"+betaccount,
+						text: "域名:"+domain+"\n"+"下注账号:"+betaccount+"\n"+betamount,
 					});
 				},
 				error: function (msg) {//ajax请求失败后触发的方法
@@ -51,6 +54,7 @@ window.operateEvents = {
 			$('#account1').val(row.account);
 			$("#username1").val(row.username);
 			$("#cellphone1").val(row.cellphone);
+			$("#password1").val(row.password);
 
 			$('#modify').on('click',function(){ // 修改
 				$.ajax({
@@ -61,6 +65,7 @@ window.operateEvents = {
 						"account": $('#account1').val(),
 						"cellphone": $("#cellphone1").val(),
 						"username": $("#username1").val(),
+						"password": $("#password1").val(),
 						"oldAccount" : row.account,
 					},
 					success: function (data1) {
@@ -72,6 +77,7 @@ window.operateEvents = {
 									account: $('#account1').val(),
 									username: $('#username1').val(),
 									cellphone: $('#cellphone1').val(),
+									password: $("#password1").val(),
 								}
 							});
 							$('#roleTable').bootstrapTable('refresh', null);
@@ -103,12 +109,12 @@ window.operateEvents = {
 				 	},
 				 	success: function (data1) {
 				 		if (data1 == 1) {
-				 			alert("删除成功!");
 				 			$('#roleTable').bootstrapTable('refresh', null);
+				 			alert("删除成功!");	
 				 		}
 				 		else if (data1 == 0) {
-				 			alert("删除失败!");
 				 			$('#roleTable').bootstrapTable('refresh', null);
+				 			alert("删除失败!");
 				 		}
 				 	},
 				 	error: function (msg) {//ajax请求失败后触发的方法
@@ -181,6 +187,11 @@ $('#tableTobeFilled').bootstrapTable({
 	}, {
 		field : 'cellphone',
 		title : '电话',
+		align: 'center',
+		valign: 'middle'
+	},{
+		field : 'password',
+		title : '密码',
 		align: 'center',
 		valign: 'middle'
 	},{
