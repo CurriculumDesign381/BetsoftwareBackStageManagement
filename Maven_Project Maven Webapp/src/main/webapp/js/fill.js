@@ -28,6 +28,7 @@ window.operateEvents = {
 					var domain = "\n";
 					var betaccount = "\n";
 					var betamount = "\n";
+					$("#tableble").empty();
 					$.each(json, function (index, item) {  
 						//循环获取数据    
 //						domain += json[index].domain + " \n";  
