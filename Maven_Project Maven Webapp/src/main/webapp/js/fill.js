@@ -30,104 +30,109 @@ window.operateEvents = {
 					var betamount = "\n";
 					$.each(json, function (index, item) {  
 						//循环获取数据    
-						domain += json[index].domain + " \n";  
-						betaccount += json[index].betaccount+"\t"+json[index].betamount+"\n";  
+//						domain += json[index].domain + " \n";  
+//						betaccount += json[index].betaccount+"\t"+json[index].betamount+"\n";  
+						var temp = "<tr><td>"+json[index].domain+"</td><td>"+json[index].betaccount+"</td><td>"
+								+json[index].betamount+"</td></tr>";
+						$("#tableble").append(temp);
+//						document.getElementById("tableble").appendChild(temp); 
 					});  
+					$('#watchSth').modal('toggle');
 
-					swal({
-						confirmButtonColor: "#DD6B55",
-						type:"info",
-						title: "查看用户信息",
-						text: "域名:"+domain+"\n"+"下注账号以及下注金额: "+betaccount,
-					});
-				},
-				error: function (msg) {//ajax请求失败后触发的方法
-					alert("请求失败");
-					console.log(msg)
-				}
-			});
-		},
-
-		'click .upData': function (e, value, row, index) {
-			// 将表格中的数据填充进模态框
-			$('#account1').val(row.account);
-			$("#username1").val(row.username);
-			$("#cellphone1").val(row.cellphone);
-			$("#password1").val(row.password);
-
-			$('#modify').on('click',function(){ // 修改
-				$.ajax({
-					url: "/Maven_Project/user/updateUser",//servlet文件的名称
-					type: "GET",
-					dataType: "json",
-					data: {
-						"account": $('#account1').val(),
-						"cellphone": $("#cellphone1").val(),
-						"username": $("#username1").val(),
-						"password": $("#password1").val(),
-						"oldAccount" : row.account,
-					},
-					success: function (data1) {
-						if (data1 == 1) {
-							alert("修改成功!");
-							$('#tableTobeFilled').bootstrapTable('updateRow', {
-								index: index,
-								row: {
-									account: $('#account1').val(),
-									username: $('#username1').val(),
-									cellphone: $('#cellphone1').val(),
-									password: $("#password1").val(),
-								}
-							});
-							$('#roleTable').bootstrapTable('refresh', null);
-							index = null;
-						}
-						else if (data1 == 0) {
-							alert("修改失败!");
-							$('#roleTable').bootstrapTable('refresh', null);
-						}
-					},
-					error: function (msg) {//ajax请求失败后触发的方法
-						alert("请求失败");
-						console.log(msg)
-					}
-				});
-			})
-		},
-		'click .sinDel': function (e, value, row, index) {
-			var r=confirm("是否删除")
-			if (r==true){
-				 $.ajax({
-				 	url: "/Maven_Project/user/deleteUser",//servlet文件的名称
-				 	type: "GET",
-				 	dataType: "json",
-				 	data: {
-				 		"cellphone": row.cellphone,
-				 		"account": row.account,
-				 		"username":row.username,
-				 	},
-				 	success: function (data1) {
-				 		if (data1 == 1) {
-				 			$('#roleTable').bootstrapTable('refresh', null);
-				 			alert("删除成功!");	
-				 		}
-				 		else if (data1 == 0) {
-				 			$('#roleTable').bootstrapTable('refresh', null);
-				 			alert("删除失败!");
-				 		}
-				 	},
-				 	error: function (msg) {//ajax请求失败后触发的方法
-				 		alert("请求失败");
-				 		console.log(msg)
-				 	}
-				 });
-
-				$('#tableTobeFilled').bootstrapTable('remove', {
-					field: 'num',
-					values: [row.num]
-				});
+//				swal({
+//				confirmButtonColor: "#DD6B55",
+//				type:"info",
+//				title: "查看用户信息",
+//				text: "域名:"+domain+"\n"+"下注账号以及下注金额: "+betaccount,
+//				});
+			},
+			error: function (msg) {//ajax请求失败后触发的方法
+				alert("请求失败");
+				console.log(msg)
 			}
-		}
+		});
+},
+
+'click .upData': function (e, value, row, index) {
+	// 将表格中的数据填充进模态框
+	$('#account1').val(row.account);
+	$("#username1").val(row.username);
+	$("#cellphone1").val(row.cellphone);
+	$("#password1").val(row.password);
+
+	$('#modify').on('click',function(){ // 修改
+		$.ajax({
+			url: "/Maven_Project/user/updateUser",//servlet文件的名称
+			type: "GET",
+			dataType: "json",
+			data: {
+				"account": $('#account1').val(),
+				"cellphone": $("#cellphone1").val(),
+				"username": $("#username1").val(),
+				"password": $("#password1").val(),
+				"oldAccount" : row.account,
+			},
+			success: function (data1) {
+				if (data1 == 1) {
+					alert("修改成功!");
+					$('#tableTobeFilled').bootstrapTable('updateRow', {
+						index: index,
+						row: {
+							account: $('#account1').val(),
+							username: $('#username1').val(),
+							cellphone: $('#cellphone1').val(),
+							password: $("#password1").val(),
+						}
+					});
+					$('#roleTable').bootstrapTable('refresh', null);
+					index = null;
+				}
+				else if (data1 == 0) {
+					alert("修改失败!");
+					$('#roleTable').bootstrapTable('refresh', null);
+				}
+			},
+			error: function (msg) {//ajax请求失败后触发的方法
+				alert("请求失败");
+				console.log(msg)
+			}
+		});
+	})
+},
+'click .sinDel': function (e, value, row, index) {
+	var r=confirm("是否删除")
+	if (r==true){
+		$.ajax({
+			url: "/Maven_Project/user/deleteUser",//servlet文件的名称
+			type: "GET",
+			dataType: "json",
+			data: {
+				"cellphone": row.cellphone,
+				"account": row.account,
+				"username":row.username,
+			},
+			success: function (data1) {
+				if (data1 == 1) {
+					$('#roleTable').bootstrapTable('refresh', null);
+					alert("删除成功!");	
+				}
+				else if (data1 == 0) {
+					$('#roleTable').bootstrapTable('refresh', null);
+					alert("删除失败!");
+				}
+			},
+			error: function (msg) {//ajax请求失败后触发的方法
+				alert("请求失败");
+				console.log(msg)
+			}
+		});
+
+		$('#tableTobeFilled').bootstrapTable('remove', {
+			field: 'num',
+			values: [row.num]
+		});
+	}
+}
 };
 
 $('#tableTobeFilled').bootstrapTable({
